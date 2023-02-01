@@ -1,0 +1,80 @@
+@import url('./variable.less');
+
+each(@types, .(@type, @typeKey){
+    // m-1 p-1
+    each(@sizes, .(@size){
+        .@{typeKey}-@{size}{
+            @{type}: @size * @baseSize;
+        }
+    })
+    // ml-1, px-1
+    each(@directions, .(@direction, @directionKey){
+        each(@sizes, .(@size) {
+            .@{typeKey}@{directionKey}-@{size} {
+                @{type}-@{direction}: @size * @baseSize;
+            }
+        })
+    })
+    // mx-1 my-1
+    each(@sizes, .(@size){
+        .@{typeKey}x-@{size} {
+            @{type}: 0 @size * @baseSize;
+        }
+        .@{typeKey}y-@{size} {
+            @{type}: @size * @baseSize 0;
+        }
+    })
+})
+
+each(@numbers, {
+    .w-@{value} {
+        width: unit(@value, ~"%"); 
+    }
+    .h-@{value} {
+        height: unit(@value, ~"%");
+    }
+})
+
+each(@textAligns, {
+    .text-@{value} {
+        text-align: @value;
+    }
+})
+
+each(@colors, {
+    .bg-@{key} {
+        background: @value;
+    }
+    .text-@{key} {
+        color: @value;
+    }
+})
+
+each(@jcOrAiAttributes, .(@jcOrAiAttribute, @jcOrAiAttributesKey) {
+    .jc-@{jcOrAiAttributesKey} {
+        justify-content: @jcOrAiAttribute;
+    }
+    .ai-@{jcOrAiAttributesKey} {
+        align-items: @jcOrAiAttribute;
+    }
+})
+
+// mx-1 my-1
+each(@fontSizes, .(@fontSize, @fontSizeKey){
+    .fs-@{fontSizeKey} {
+        font-size: @fontSize * @baseSize;
+    }
+})
+
+.d-flex{
+    display: flex;
+}
+.flex-column {
+    flex-direction: column;
+}
+.flex-shrink {
+    flex-shrink: 1;
+}
+.flex-1{
+    flex: 1;
+}
